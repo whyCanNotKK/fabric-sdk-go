@@ -62,7 +62,7 @@ func newNetwork(gateway *Gateway, channelProvider context.ChannelProvider) (*Net
 	return &n, nil
 }
 
-func GetChannelProviderChash() *context.ChannelProvider {
+func (n *Network) GetChannelProviderChash() *context.ChannelProvider {
 	return channelProviderChash
 }
 
