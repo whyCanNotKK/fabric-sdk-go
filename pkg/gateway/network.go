@@ -23,6 +23,8 @@ type Network struct {
 	event   *event.Client
 }
 
+var channelProviderChash *context.ChannelProvider
+
 func newNetwork(gateway *Gateway, channelProvider context.ChannelProvider) (*Network, error) {
 	n := Network{
 		gateway: gateway,
@@ -34,6 +36,7 @@ func newNetwork(gateway *Gateway, channelProvider context.ChannelProvider) (*Net
 		return nil, errors.Wrap(err, "Failed to create new channel client")
 	}
 
+	channelProviderChash = &channelProvider
 	n.client = client
 
 	ctx, err := channelProvider()
@@ -57,6 +60,10 @@ func newNetwork(gateway *Gateway, channelProvider context.ChannelProvider) (*Net
 	members.ContainsMSP(gateway.mspid)
 
 	return &n, nil
+}
+
+func GetChannelProviderChash() *context.ChannelProvider {
+	return channelProviderChash
 }
 
 // Name is the name of the network (also known as channel name)
