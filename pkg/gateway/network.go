@@ -23,7 +23,7 @@ type Network struct {
 	event   *event.Client
 }
 
-var channelProviderChash *context.ChannelProvider
+var channelProviderChash context.ChannelProvider
 
 func newNetwork(gateway *Gateway, channelProvider context.ChannelProvider) (*Network, error) {
 	n := Network{
@@ -36,7 +36,8 @@ func newNetwork(gateway *Gateway, channelProvider context.ChannelProvider) (*Net
 		return nil, errors.Wrap(err, "Failed to create new channel client")
 	}
 
-	channelProviderChash = &channelProvider
+	channelProviderChash = channelProvider
+
 	n.client = client
 
 	ctx, err := channelProvider()
@@ -62,7 +63,7 @@ func newNetwork(gateway *Gateway, channelProvider context.ChannelProvider) (*Net
 	return &n, nil
 }
 
-func (n *Network) GetChannelProviderChash() *context.ChannelProvider {
+func (n *Network) GetChannelProviderChash() context.ChannelProvider {
 	return channelProviderChash
 }
 
